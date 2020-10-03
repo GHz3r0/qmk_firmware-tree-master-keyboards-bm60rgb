@@ -9,40 +9,39 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
 		case 0:
 			uLayer = 1;
-			
+			oldLayer = 1;
 			break;
 		case 1:
 			uLayer = 2;
-			
+			oldLayer = 2;
 			break;
 		case 2:
 			uLayer = 3;
-			
+			oldLayer = 3;
 			break;
 		case 3:
 			uLayer = 2;
-			
+			oldLayer = 2;
 			break;
 		case 4:
 			uLayer = 5;
-			
+			oldLayer = 5;
 			break;
 		case 5:
 			uLayer = 6;
-			
+			oldLayer = 6;
 			break;
 		case 6: 
 			uLayer = 2;
-			
+			oldLayer = 2;
 			break;
 		default:
 			uLayer = 1;
-			
+			oldLayer = 1;
 			break;
 	}
 	return state;
 	return uLayer;
-	oldLayer = uLayer;
 	return oldLayer;
 }
 
@@ -51,7 +50,7 @@ bool led_update_user(led_t led_state) {
         uLayer = 7;
     } 
 	if (led_state.caps_lock == 0) {
-		//uLayer = oldLayer;
+		uLayer = oldLayer;
 	}
     return true;
 }
