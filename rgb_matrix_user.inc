@@ -12,53 +12,6 @@ RGB_MATRIX_EFFECT(UNDERGLOW_LAYER)
 uint8_t uLayer;
 uint8_t oldLayer;
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-		case _WMAN:
-			uLayer = _WMAN;
-			oldLayer = uLayer;
-			autoshift_enable();
-			break;
-		case _QW:
-			uLayer = _QW;
-			oldLayer = uLayer;
-			autoshift_enable();
-			break;
-		case _GAME:
-			uLayer = _GAME;
-			oldLayer = uLayer;
-			autoshift_disable();
-			break;
-		case _MOUSE:
-			uLayer = _MOUSE;
-			oldLayer = uLayer;
-			autoshift_disable();
-			break;
-		case _FN:
-			uLayer = _FN;
-			oldLayer = uLayer;
-			break;
-		default:
-			uLayer = _WMAN;
-			oldLayer = uLayer;
-			autoshift_enable();
-			break;
-	}
-	return state;
-	return uLayer;
-	return oldLayer;
-}
-
-bool led_update_user(led_t led_state) {
-    if (led_state.caps_lock == 1) {
-        uLayer = _CAPS;
-    } 
-	if (led_state.caps_lock == 0) {
-		uLayer = oldLayer;
-	}
-    return true;
-}
-
 bool UNDERGLOW_LAYER(effect_params_t* params) {
 	RGB_MATRIX_USE_LIMITS(led_min, led_max);
 	HSV hsv  = rgb_matrix_config.hsv;
