@@ -1,3 +1,5 @@
+It should theoretically be possible to modify other effects in the same manner for the same result.
+
 # BM60 RGB
 
 A 60% hotswap inswitch RGB keyboard from KP Republic. 
