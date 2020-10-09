@@ -2,42 +2,46 @@ RGB_MATRIX_EFFECT(UNDERGLOW_LAYER)
 
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
+#define _WMAN 0
+#define _QW 1
+#define _GAME 2
+#define _MOUSE 3
+#define _FN 4
+#define _CAPS 5
+
 uint8_t uLayer;
 uint8_t oldLayer;
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
-		case 0:
-			uLayer = 1;
-			oldLayer = 1;
+		case _WMAN:
+			uLayer = _WMAN;
+			oldLayer = uLayer;
+			autoshift_enable();
 			break;
-		case 1:
-			uLayer = 2;
-			oldLayer = 2;
+		case _QW:
+			uLayer = _QW;
+			oldLayer = uLayer;
+			autoshift_enable();
 			break;
-		case 2:
-			uLayer = 3;
-			oldLayer = 3;
+		case _GAME:
+			uLayer = _GAME;
+			oldLayer = uLayer;
+			autoshift_disable();
 			break;
-		case 3:
-			uLayer = 2;
-			oldLayer = 2;
+		case _MOUSE:
+			uLayer = _MOUSE;
+			oldLayer = uLayer;
+			autoshift_disable();
 			break;
-		case 4:
-			uLayer = 5;
-			oldLayer = 5;
-			break;
-		case 5:
-			uLayer = 6;
-			oldLayer = 6;
-			break;
-		case 6: 
-			uLayer = 2;
-			oldLayer = 2;
+		case _FN:
+			uLayer = _FN;
+			oldLayer = uLayer;
 			break;
 		default:
-			uLayer = 1;
-			oldLayer = 1;
+			uLayer = _WMAN;
+			oldLayer = uLayer;
+			autoshift_enable();
 			break;
 	}
 	return state;
@@ -47,7 +51,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 bool led_update_user(led_t led_state) {
     if (led_state.caps_lock == 1) {
-        uLayer = 7;
+        uLayer = _CAPS;
     } 
 	if (led_state.caps_lock == 0) {
 		uLayer = oldLayer;
@@ -66,29 +70,26 @@ bool UNDERGLOW_LAYER(effect_params_t* params) {
         RGB_MATRIX_TEST_LED_FLAGS();
         if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_UNDERGLOW)) {
             switch(uLayer) {
-				case 1:
-					rgb_matrix_set_color(i, RGB_MAGENTA);
-					break;
-				case 2:
-					rgb_matrix_set_color(i, RGB_RED);
-					break;
-				case 3:
-					rgb_matrix_set_color(i, RGB_PINK);
-					break;
-				case 4:
-					rgb_matrix_set_color(i, RGB_TEAL);
-					break;
-				case 5:
+				case _WMAN:
 					rgb_matrix_set_color(i, RGB_GREEN);
 					break;
-				case 6:
-					rgb_matrix_set_color(i, 30, 250, 200);
+				case _FN:
+					rgb_matrix_set_color(i, RGB_RED);
 					break;
-				case 7:
+				case _QW:
+					rgb_matrix_set_color(i, RGB_MAGENTA);
+					break;
+				case _GAME:
+					rgb_matrix_set_color(i, RGB_GOLD);
+					break;
+				case _MOUSE:
+					rgb_matrix_set_color(i, RGB_CYAN);
+					break;
+				case _CAPS:
 					rgb_matrix_set_color(i, RGB_BLUE);
 					break;
 				default:
-					rgb_matrix_set_color(i, RGB_GOLD);
+					rgb_matrix_set_color(i, RGB_PINK);
 					break;
 			}
         } else {

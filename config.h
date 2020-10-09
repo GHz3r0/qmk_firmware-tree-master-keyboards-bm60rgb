@@ -55,8 +55,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGB_MATRIX_KEYPRESSES
 #endif
 #define RGBLIGHT_HUE_STEP 5
+#define RGB_DISABLE_TIMEOUT 120000           //in ms, multiply Minutes by 60000
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true
+//#define RGBLIGHT_SLEEP
 #define UNICODE_SELECTED_MODES UC_WIN
+#define TAPPING_TERM 175
 
 #define MOUSEKEY_DELAY 200
 #define MOUSEKEY_INTERVAL 16
